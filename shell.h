@@ -118,11 +118,6 @@ char *find_path(info_t *, char *, char *);
 /* loophsh.c */
 int loophsh(char **);
 
-/* err_string_functions.c */
-void _eputs(char *);
-int _eputchar(char);
-int _putfd(char c, int fd);
-int _putsfd(char *str, int fd);
 /*basic1*/
 int _strlen(char *);
 int _strcmp(char *, char *);
@@ -146,20 +141,44 @@ void ffree(char **);
 void *_realloc(void *, unsigned int, unsigned int);
 /* memo2 */
 int free_ad(void **);
-
-/* more_functions.c */
-int interactive(info_t *);
-int is_delim(char, char *);
-int _isalpha(int);
-int _atoi(char *);
-
-/* more_functions2.c */
-int _erratoi(char *);
-void print_error(info_t *, char *);
-int print_d(int, int);
-char *convert_number(long int, int, int);
-void remove_comments(char *);
-
+/*func1*/
+int interactive(inf_o *i);
+int is_delim(char c, char *del);
+int _isalpha(int s);
+int _atoi(char *str);
+/*func2*/
+char *convert_number(long int num, int b, int f);
+void remove_comments(char *buff);
+int _erratoi(char *str);
+int print_d(int in, int fd);
+void print_error(inf_o *inf, char *e);
+/* llist1*/
+lis_t *add_node(lis_t **h, const char *s, int num);
+lis_t *add_node_end(lis_t **h, const char *s, int num);
+size_t print_list_str(const lis_t *head);
+int delete_node_at_index(lis_t **h, unsigned int index);
+void free_list(lis_t **h_ptr);
+/*llist2*/
+size_t list_len(const lis_t *head);
+char **list_to_strings(lis_t *h);
+size_t print_list(const lis_t *head);
+lis_t *node_starts_with(lis_t *h, char *text, char c);
+ssize_t get_node_index(lis_t *h, lis_t *ind);
+/*err.fi*/
+int _eputchar(char c);
+void _eputs(char *s);
+int _putfd(char s, int fd);
+int _putsfd(char *s, int fd);
+/*minf*/
+void clear_info(inf_o *inf);
+void set_info(inf_o *inf, char **av);
+void free_info(inf_o *inf, int all);
+/*enviorn1*/
+int populate_env_list(inf_o *inf);
+int _myenv(inf_o *inf);
+char *_getenv(inf_o *inf, const char *n);
+int _mysetenv(inf_o *inf);
+int _myunsetenv(inf_o *inf);
 /* builtin_emulators.c */
 int _myexit(info_t *);
 int _mycd(info_t *);
@@ -174,18 +193,6 @@ ssize_t get_input(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(int);
 
-/* info.c module */
-void clear_info(info_t *);
-void set_info(info_t *, char **);
-void free_info(info_t *, int);
-
-/* env.c module */
-char *_getenv(info_t *, const char *);
-int _myenv(info_t *);
-int _mysetenv(info_t *);
-int _myunsetenv(info_t *);
-int populate_env_list(info_t *);
-
 /* env2.c module */
 char **get_environ(info_t *);
 int _unsetenv(info_t *, char *);
@@ -196,20 +203,6 @@ int write_history(info_t *info);
 int read_history(info_t *info);
 int build_history_list(info_t *info, char *buf, int linecount);
 int renumber_history(info_t *info);
-
-/* liststr.c module */
-list_t *add_node(list_t **, const char *, int);
-list_t *add_node_end(list_t **, const char *, int);
-size_t print_list_str(const list_t *);
-int delete_node_at_index(list_t **, unsigned int);
-void free_list(list_t **);
-
-/* liststr2.c module */
-size_t list_len(const list_t *);
-char **list_to_strings(list_t *);
-size_t print_list(const list_t *);
-list_t *node_starts_with(list_t *, char *, char);
-ssize_t get_node_index(list_t *, list_t *);
 
 /* chain.c */
 int is_chain(info_t *, char *, size_t *);
