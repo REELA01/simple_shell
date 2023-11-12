@@ -28,7 +28,6 @@
 /* 1 if using system getline() */
 #define USE_GETLINE 0
 #define USE_STRTOK 0
-
 #define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
 
@@ -91,7 +90,6 @@ typedef struct pass_info
 #define INFO_INIT \
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
 	0, 0, 0}
-
 /**
  *struct builtin - contains a builtin string and related function
  *@type: the builtin command flag
@@ -179,31 +177,29 @@ int _myenv(inf_o *inf);
 char *_getenv(inf_o *inf, const char *n);
 int _mysetenv(inf_o *inf);
 int _myunsetenv(inf_o *inf);
-/* builtin_emulators.c */
-int _myexit(info_t *);
-int _mycd(info_t *);
-int _myhelp(info_t *);
-
-/* builtin_emulators2.c */
-int _myhistory(info_t *);
-int _myalias(info_t *);
+/*like1*/
+int _myhelp(inf_o *inf);
+int _myexit(inf_o *inf);
+int _mycd(inf_o *inf);
+/*alias*/
+int _myalias(inf_o *);
+int _myhistory(inf_o *);
 
 /* getline.c module */
 ssize_t get_input(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(int);
 
-/* env2.c module */
-char **get_environ(info_t *);
-int _unsetenv(info_t *, char *);
-int _setenv(info_t *, char *, char *);
-/* file_io_functions.c*/
-char *get_history_file(info_t *info);
-int write_history(info_t *info);
-int read_history(info_t *info);
-int build_history_list(info_t *info, char *buf, int linecount);
-int renumber_history(info_t *info);
-
+/*environ2*/
+int _unsetenv(inf_o *inf, char *va);
+int _setenv(inf_o *inf, char *va, char *val);
+char **get_environ(inf_o *inf);
+/*hist*/
+int build_hist_list(inf_o *inf, char *buff, int lcount);
+int renumber_hist(inf_o *inf);
+char *get_hist_file(inf_o *inf);
+int write_history(inf_o *inf);
+int read_history(inf_o *inf);
 /* chain.c */
 int is_chain(info_t *, char *, size_t *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
