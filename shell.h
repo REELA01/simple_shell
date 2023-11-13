@@ -95,7 +95,6 @@ typedef struct builtin
 	char *type;
 	int (*func)(inf_o *);
 } builtin_tab;
-
 /*hsh*/
 int find_builtin_c(inf_o *inf);
 void fork_cmd(inf_o *inf);
@@ -108,28 +107,28 @@ char *find_path(inf_o *inf, char *pastr, char *cmd);
 /* loophsh.c */
 int loophsh(char **);
 /*basic1*/
-int _strlen(char *);
-int _strcmp(char *, char *);
-char *starts_with(const char *, const char *);
-char *_strcat(char *, char *);
+int _strlen(char *str);
+int _strcmp(char *str1, char *str2);
+char *starts_with(const char *hk, const char *n);
+char *_strcat(char *d, char *s);
 /*basic2*/
-char *_strcpy(char *, char *);
-char *_strdup(const char *);
-void _puts(char *);
-int _putchar(char);
+char *_strcpy(char *d, char *s);
+char *_strdup(const char *strr);
+void _puts(char *strr);
+int _putchar(char c);
 /*basic3*/
-char *_strncpy(char *, char *, int);
-char *_strncat(char *, char *, int);
-char *_strchr(char *, char);
+char *_strncpy(char *d, char *s, int num);
+char *_strncat(char *d, char *s, int num);
+char *_strchr(char *str, char c);
 /*basic4*/
-char **strsplit(char *, char *);
-char **strsplit2(char *, char);
+char **strsplit(char *sn, char *dt);
+char **strsplit2(char *sn, char delim);
 /* memo1*/
-char *_memset(char *, char, unsigned int);
-void ffree(char **);
-void *_realloc(void *, unsigned int, unsigned int);
+char *_memset(char *m, char d, unsigned int size);
+void ffree(char **sstr);
+void *_realloc(void *pointer, unsigned int old_size, unsigned int new_size);
 /* memo2 */
-int free_ad(void **);
+int free_ad(void **pointer);
 /*func1*/
 int interactive(inf_o *i);
 int is_delim(char c, char *del);
