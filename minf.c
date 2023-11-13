@@ -22,7 +22,7 @@ void set_info(inf_o *inf, char **av)
 	inf->fname = av[0];
 	if (inf->arg)
 	{
-		inf->argv = strsplit(info->arg, " \t");
+		inf->argv = strsplit(inf->arg, " \t");
 		if (!inf->argv)
 		{
 			inf->argv = malloc(sizeof(char *) * 2);

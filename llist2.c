@@ -11,7 +11,7 @@ size_t list_len(const lis_t *head)
 	while (head)
 	{
 		head = head->next;
-		i++;
+		j++;
 	}
 	return (j);
 }

@@ -11,20 +11,19 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#define CONVERT_LOWERCASE       1
-#define CONVERT_UNSIGNED        2
+#define CONVERT_LOWERCASE	1
+#define CONVERT_UNSIGNED	2
 #define BUF_FL -1
 #define R_BUF_SIZE 1024
 #define W_BUF_SIZE 1024
-#define CMD_NORM        0
+#define CMD_NORM	0
 #define CMD_OR		1
 #define CMD_AND		2
 #define CMD_CHAIN	3
-/* 1 if using system getline() */
-#define USE_GETLINE 0
-#define USE_STRTOK 0
 #define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
+#define USE_GETLINE 0
+#define USE_STRTOK 0
 
 extern char **environ;
 /**
@@ -63,6 +62,11 @@ typedef struct list_str
 */
 typedef struct pass_info
 {
+	int err_num;
+	int linecount_flag;
+	int env_changed;
+	int status;
+	int cmd_buf_type;
 	char *arg;
 	char **argv;
 	char *path;
@@ -70,11 +74,6 @@ typedef struct pass_info
 	char **environ;
 	char **cmd_buf;
 	int argc;
-	int err_num;
-	int linecount_flag;
-	int env_changed;
-	int status;
-	int cmd_buf_type;
 	int readfd;
 	int histcount;
 	unsigned int line_count;
@@ -82,33 +81,32 @@ typedef struct pass_info
 	lis_t *history;
 	lis_t *alias;
 } inf_o;
+
 #define INFO_INIT \
-{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-	0, 0, 0}
+{0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, \
+	NULL, NULL, NULL}
 /**
- *struct builtin - contains a builtin string and related function
- *@type: the builtin command flag
- *@func: the function
- */
+ *struct builtin - contain a builtin string
+ *@type: comm flag
+ *@func: fuction
+*/
 typedef struct builtin
 {
 	char *type;
 	int (*func)(inf_o *);
 } builtin_tab;
 
-
-/* hsh.c */
-int hsh(info_t *, char **);
-int find_builtin(info_t *);
-void find_cmd(info_t *);
-void fork_cmd(info_t *);
+/*hsh*/
+int find_builtin_c(inf_o *inf);
+void fork_cmd(inf_o *inf);
+void find_cmd(inf_o *inf);
+int hsh(inf_o *inf, char **av);
 /* path_1 */
 int is_cmd(inf_o *inf, char *pa);
 char *dup_chars(char *pastr, int start, int stop);
 char *find_path(inf_o *inf, char *pastr, char *cmd);
 /* loophsh.c */
 int loophsh(char **);
-
 /*basic1*/
 int _strlen(char *);
 int _strcmp(char *, char *);
@@ -177,12 +175,10 @@ int _mycd(inf_o *inf);
 /*alias*/
 int _myalias(inf_o *);
 int _myhistory(inf_o *);
-
-/* getline.c module */
-ssize_t get_input(info_t *);
-int _getline(info_t *, char **, size_t *);
-void sigintHandler(int);
-
+/*alot2*/
+ssize_t get_input(inf_o *inf);
+int _getline(inf_o *inf, char **ptr, size_t *l);
+void sigintHandl(int);
 /*environ2*/
 int _unsetenv(inf_o *inf, char *va);
 int _setenv(inf_o *inf, char *va, char *val);
@@ -199,5 +195,4 @@ void check_chain(inf_o *inf, char *buff, size_t *ptr, size_t i, size_t l);
 int replace_string(char **o, char *n);
 int replace_alias(inf_o *inf);
 int replace_vars(inf_o *inf);
-
 #endif

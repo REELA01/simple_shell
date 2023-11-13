@@ -19,8 +19,8 @@ lis_t *add_node(lis_t **h, const char *s, int num)
 	new_head->num = num;
 	if (s)
 	{
-		new_head->s = _strdup(s);
-		if (!new_head->s)
+		new_head->str = _strdup(s);
+		if (!new_head->str)
 		{
 			free(new_head);
 			return (NULL);
@@ -54,8 +54,8 @@ lis_t *add_node_end(lis_t **h, const char *s, int num)
 	new_node->num = num;
 	if (s)
 	{
-		new_node->s = _strdup(s);
-		if (!new_node->s)
+		new_node->str = _strdup(s);
+		if (!new_node->str)
 		{
 			free(new_node);
 			return (NULL);
