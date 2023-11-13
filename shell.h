@@ -11,20 +11,15 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#define CONVERT_LOWERCASE       1
+#define CONVERT_UNSIGNED        2
+#define BUF_FL -1
 #define R_BUF_SIZE 1024
 #define W_BUF_SIZE 1024
-#define BUF_FL -1
-
-/* for command chaining */
-#define CMD_NORM	0
+#define CMD_NORM        0
 #define CMD_OR		1
 #define CMD_AND		2
 #define CMD_CHAIN	3
-
-/* for convert_number() */
-#define CONVERT_LOWERCASE	1
-#define CONVERT_UNSIGNED	2
-
 /* 1 if using system getline() */
 #define USE_GETLINE 0
 #define USE_STRTOK 0
@@ -98,8 +93,8 @@ typedef struct pass_info
 typedef struct builtin
 {
 	char *type;
-	int (*func)(info_t *);
-} builtin_table;
+	int (*func)(inf_o *);
+} builtin_tab;
 
 
 /* hsh.c */
@@ -107,12 +102,10 @@ int hsh(info_t *, char **);
 int find_builtin(info_t *);
 void find_cmd(info_t *);
 void fork_cmd(info_t *);
-
-/* path.c */
-int is_cmd(info_t *, char *);
-char *dup_chars(char *, int, int);
-char *find_path(info_t *, char *, char *);
-
+/* path_1 */
+int is_cmd(inf_o *inf, char *pa);
+char *dup_chars(char *pastr, int start, int stop);
+char *find_path(inf_o *inf, char *pastr, char *cmd);
 /* loophsh.c */
 int loophsh(char **);
 
@@ -200,11 +193,11 @@ int renumber_hist(inf_o *inf);
 char *get_hist_file(inf_o *inf);
 int write_history(inf_o *inf);
 int read_history(inf_o *inf);
-/* chain.c */
-int is_chain(info_t *, char *, size_t *);
-void check_chain(info_t *, char *, size_t *, size_t, size_t);
-int replace_alias(info_t *);
-int replace_vars(info_t *);
-int replace_string(char **, char *);
+/*alot*/
+int is_chain(inf_o *inf, char *buff, size_t *ptr);
+void check_chain(inf_o *inf, char *buff, size_t *ptr, size_t i, size_t l);
+int replace_string(char **o, char *n);
+int replace_alias(inf_o *inf);
+int replace_vars(inf_o *inf);
 
 #endif
